@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:80'
+    environment:
+      - POSTGRES_DB=games_db
+      - POSTGRES_USER=games_db_user
+      - POSTGRES_PASSWORD=games_db_password
+      - POSTGRES_HOST=db
+      - LOG_LEVEL=debug
+  db:
+    image: postgres:12
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_DB=games_db
+      - POSTGRES_USER=games_db_user
+      - POSTGRES_PASSWORD=games_db_password

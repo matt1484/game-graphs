@@ -1,0 +1,8 @@
+fastapi<=1.0.0
+uvicorn[standard]
+prometheus-fastapi-instrumentator
+python-dotenv
+nose2
+psycopg2
+SQLAlchemy
+structlog

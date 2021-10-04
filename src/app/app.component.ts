@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
         this.top10Games = top10Games;
         this.totalGames = totalGames;
         this.totalPublishers = allPublishers.size;
-        this.totalSales = totalSales;
+        this.totalSales = Math.round((totalSales + Number.EPSILON) * 100) / 100;
         this.platformDistribution = platformDistribution;
       },
       (error) => { console.log(error); });

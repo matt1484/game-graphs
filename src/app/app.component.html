@@ -1,0 +1,94 @@
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+</style>
+
+<mat-toolbar class="banner">
+  <span>Game Graphs</span>
+  <span style="flex: 1 1 auto;"></span>
+  <mat-form-field style="width: 70px; font-size: 12px;">
+    <mat-select [(value)]="year" (selectionChange)="reloadData()">
+      <mat-option *ngFor="let _ of [].constructor(37); let i = index" [value]="i + 1980">{{ i + 1980 }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-toolbar>
+
+<div class="content">
+  <mat-grid-list [cols]="cols" rowHeight="230" gutterSize="0px" (window:resize)="calcCols()">
+    <mat-grid-tile [colspan]="cols == 12? 7: cols" rowspan="2">
+      <mat-card>
+        <h1>Genre Sales by Region</h1>
+        <div class="chart-container">
+          <ngx-charts-bar-horizontal-stacked
+            [results]="genreByPlatformSeries"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Sales in millions"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="cols >= 8"
+            scheme="vivid"
+          >
+          </ngx-charts-bar-horizontal-stacked>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="cols == 12? 5: (cols >=8? cols / 2: cols)" rowspan="2">
+      <mat-card>
+        <h1>Best Sellers</h1>
+        <mat-table [dataSource]="top10Games">
+          <ng-container matColumnDef="rank">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let game; let i = index"> {{i + 1}}. </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let game"> {{game.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="sales">
+            <mat-header-cell *matHeaderCellDef> Sales </mat-header-cell>
+            <mat-cell *matCellDef="let game"> {{game.sales}}M </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="['rank', 'name', 'sales']"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: ['rank', 'name', 'sales']; let i = index;"></mat-row>
+        </mat-table>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="cols == 12? 5: (cols >=8? cols / 2: cols)" rowspan="2">
+      <mat-card>
+        <h1>Total Sales</h1>
+        <h3>{{ totalSales }}M</h3>
+        <h1>Number of Games</h1>
+        <h3>{{ totalGames }}</h3>
+        <h1>Number of Publishers</h1>
+        <h3>{{ totalPublishers }}</h3>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="cols == 12? 7: cols" rowspan="2">
+      <mat-card>
+        <h1>Platform Distribution</h1>
+        <div class="chart-container">
+          <ngx-charts-pie-chart
+            [results]="platformDistribution"
+            [labels]="true"
+            [legend]="cols >= 6"
+            scheme="vivid"
+          >
+          </ngx-charts-pie-chart>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <footer>
+  </footer>
+</div>
+
+<router-outlet></router-outlet>

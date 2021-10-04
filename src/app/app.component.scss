@@ -1,0 +1,48 @@
+.content {
+    padding: 10px;
+    padding-top: 70px;
+    background: lightgrey;
+
+    .mat-card {
+        width: calc(100% - 50px);
+        height: calc(100% - 50px);
+    }
+
+    .mat-column-rank {
+        flex: 0 0 20px !important;
+        width: 20px !important;
+        padding-left: 0px;
+        padding-right: 5px;
+    }
+    .mat-column-sales {
+        flex: 0 0 50px !important;
+        width: 50px !important;
+        padding-right: 0px;
+    }
+
+    mat-row {
+        min-height: 30px !important;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 70px;
+    }
+    .chart-container { 
+        height: 90%;
+        width: 100%;
+    }
+}
+
+.banner {
+    padding: 20px; 
+    background-color: purple; 
+    color: white; 
+    font-size: 40px;
+    position: fixed;
+    z-index: 1;
+}

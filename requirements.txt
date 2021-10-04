@@ -6,3 +6,4 @@ nose2
 psycopg2
 SQLAlchemy
 structlog
+requests

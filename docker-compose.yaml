@@ -1,9 +1,20 @@
 version: '3.9'
 services:
+  ui:
+    build:
+      context: .
+      dockerfile: ./docker/ui.Dockerfile
+      target: base
+    ports:
+      - '4200:80'
+    depends_on:
+      - api
+    environment:
+      - PROXY_URL=http://api
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/api.Dockerfile
     ports:
       - '8000:80'
     environment:
@@ -12,6 +23,8 @@ services:
       - POSTGRES_PASSWORD=games_db_password
       - POSTGRES_HOST=db
       - LOG_LEVEL=debug
+    depends_on:
+      - db
   db:
     image: postgres:12
     volumes:

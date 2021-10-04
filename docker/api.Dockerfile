@@ -2,6 +2,7 @@ FROM python:3.9
 
 RUN apt update -y
 
+WORKDIR /api
 ADD requirements.txt .
 RUN python -m pip install --no-cache-dir -r requirements.txt
 ADD . .
